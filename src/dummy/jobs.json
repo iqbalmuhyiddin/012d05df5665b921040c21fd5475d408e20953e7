@@ -1,0 +1,87 @@
+[
+  {
+      "id":1,
+      "title": "Pembantu Jualan Kedai Runcit",
+      "company": "Majestic Express Holiday",
+      "location": "Batu Caves, Selangor",
+      "type":"Fulltime",
+      "description":"Hardworking willing to work at Public Holiday & Weekend. Can communicate with Mandarin due to our customer majority from China.",
+      "employer_contact": {
+        "phone":"601921929",
+        "whatsapp":"601921929",
+        "email":"staff@company.com"
+      },
+      "requirements": {
+        "language":[
+          "Mandarin",
+          "Melayu"
+        ],
+        "items": [
+          "Rajin",
+          "Bersedia bekerja di Cuti Umum & Hujung Minggu.",
+          "Boleh berkomunikasi dengan Mandarin kerana majoriti pelanggan kami dari China."
+        ]
+      },
+      "responsibilites": [
+        "Untuk membantu menjual dan mempromosikan barang kemas, produk tempatan, lateks",
+        "Memahami maklumat produk, dan jelaskan kepada pelanggan apabila diperlukan."
+      ],
+      "benefit": [
+        "Gaji asas",
+        "Komisyen",
+        "Elaun",
+        "Bonus",
+        "KWSP",
+        "PERKESO",
+        "Insurans kemalangan"
+      ],
+      "nationality":"Malaysia",
+      "views":160
+  },
+  {
+      "id":2,
+      "title": "Perunding Hartanah",
+      "company": "DHY Reality",
+      "location": "Sri Hartamas, Kuala Lumpur",
+      "type":"Fulltime",
+      "description":"Minimum Diploma levels, age above 18 years old. Able to communicate in Chinese, English, Bahasa Malaysia. Possess basic computer knowledge.",
+      "employer_contact": {
+        "phone":"601381333",
+        "whatsapp":"601381333",
+        "email":"staff@companiescorp.com"
+      },
+      "requirements": {
+        "language":[
+          "Mandarin",
+          "Melayu"
+        ],
+        "items": [
+          "Tahap pendidikan minimum Diploma ",
+          "Umur18 tahun ke atas",
+          "Boleh berkomunikasi dalam Bahasa Cina, Bahasa Inggeris, Bahasa Malaysia",
+          "Memiliki pengetahuan komputer asas",
+          "Mempunyai kenderaan sendiri",
+          "Mencari calon yang ingin belajar, disiplin diri, tekad yang kuat untuk berjaya"
+        ]
+      },
+      "responsibilites": [
+        "Untuk mengendalikan panggilan masuk dan keluar",
+        "Untuk memasarkan projek harta tanah dan sub-penjualan (hartanah siap)",
+        "Untuk melaksanakan pelan pemasaran dan tindak lanjut jualan",
+        "Berunding dan berurusan dengan semua pihak yang melibatkan penjualan dan penyewaan hartanah"
+      ],
+      "benefit": [
+        "Latihan 1-ke-1",
+        "Latihan praktikal di lokasi",
+        "Elaun Pemasaran / Pengangkutan.",
+        "Sokongan Telemarketing",
+        "Keuntungan harta, pinjaman rumah dan pengetahuan undang-undang",
+        "Usaha anda adalah pendapatan anda",
+        "Pendapatan bulanan sehingga 25,000",
+        "Persekitaran kerja yang menyeronokkan dan suasana pejabat moden.",
+        "Peluang memperolehi banyak sumber pendapatan."
+      ],
+      "nationality":"Malaysia",
+      "views":160
+  }
+]
