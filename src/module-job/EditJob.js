@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import { observable, toJS } from 'mobx';
 import TagsInput from 'react-tagsinput'
 import dummy from '../dummy/jobs.json';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 let renders = [] 
 
@@ -16,7 +16,9 @@ export default observer (
 
     states = observable({
       isLoading: true,
+      id: 0,
       data: {
+        id: 0,
         title: '',
         company: '',
         location: '',
@@ -100,29 +102,74 @@ export default observer (
      }
 
     saveData = () => {
+      this.states.isLoading = false
       console.log(toJS(this.states.data));
-      const {data} = this.states
-      axios.post(`http://private-27298f-frontendtestmaukerja.apiary-mock.com/jobs`, { data })
+      const {data, id} = this.states
+      axios.put(`http://private-27298f-frontendtestmaukerja.apiary-mock.com/job/${id}`, { data }, {headers: {"Content-Type": "application/json"}})
         .then(res => {
           console.log(res);
           console.log(res.data);
+          this.states.redirect = true
+          
         })
+        .catch(error => {
+          console.log(error)
+        });
     }
 
     componentDidMount() {
-      axios.get('http://private-27298f-frontendtestmaukerja.apiary-mock.com/jobs?limit=100')
+      const id = this.props.match.params.jobId
+      this.states.id = id
+      axios.get(`http://private-27298f-frontendtestmaukerja.apiary-mock.com/job/${id}}`)
         .then(res => {
           this.states.isLoading = false
-          console.log('res.data', res.data);
+          this.states.data = res.data
         })
+        .catch(error => {
+          console.log(error)
+        });
     }
     render() {
-      
-      
+      const {data, isLoading, redirect} = this.states
+      if (redirect) {
+        return <Redirect to="/admin" push />
+      }
       const loading = (
         <LoadingWrapper>
           <ReactLoading type='spin' color='#2980b9'/>
         </LoadingWrapper>
+      )
+
+      const form = (
+        <FormWrapper>
+          <FormLabel>Title</FormLabel>
+          <Input placeholder='Job Title' value={data.title} onChange={this.handleTitle} />
+          <FormLabel>Company</FormLabel>
+          <Input placeholder='Company' value={data.company} onChange={this.handleCompany} />
+          <FormLabel>Location</FormLabel>
+          <Input placeholder='Location' value={data.location} onChange={this.handleLocation} />
+          <FormLabel>Description</FormLabel>
+          <TextArea placeholder='Description' value={data.description} onChange={this.handleDescription} />
+          <FormLabel>Nationality</FormLabel>
+          <Input placeholder='Nationality' value={data.nationality} onChange={this.handleNationality} />
+          <FormLabel>Type</FormLabel>
+          <Input placeholder='Type' value={data.type} onChange={this.handleType} />
+          <FormLabel>Phone</FormLabel>
+          <Input placeholder='Phone' value={data.employer_contact.phone} onChange={this.handlePhone} />
+          <FormLabel>WhatsApp</FormLabel>
+          <Input placeholder='Whatsapp' value={data.employer_contact.whatsapp} onChange={this.handleWhatsapp} />
+          <FormLabel>Email</FormLabel>
+          <Input placeholder='E-mail' value={data.employer_contact.email} onChange={this.handleEmail} />
+          <FormLabel>Requirements</FormLabel>
+          <TagsInput value={data.requirements.items} onChange={this.handleRequirements} />
+          <FormLabel>Language</FormLabel>
+          <TagsInput value={data.requirements.language} onChange={this.handleLanguage} />
+          <FormLabel>Responsibilites</FormLabel>
+          <TagsInput value={data.responsibilites} onChange={this.handleResponsibilities} />
+          <FormLabel>Benefit</FormLabel>
+          <TagsInput value={data.benefit} onChange={this.handleBenefit} />
+          <Button onClick={this.saveData}>Save</Button>
+        </FormWrapper>
       )
       return (
         <Container>
@@ -144,33 +191,7 @@ export default observer (
           </Menu>
           <SubTitle>Add new Job</SubTitle>
           <Divider/>
-            <FormLabel>Title</FormLabel>
-            <Input placeholder='Job Title' onChange={this.handleTitle} />
-            <FormLabel>Company</FormLabel>
-            <Input placeholder='Company' onChange={this.handleCompany} />
-            <FormLabel>Location</FormLabel>
-            <Input placeholder='Location' onChange={this.handleLocation} />
-            <FormLabel>Description</FormLabel>
-            <TextArea placeholder='Description' onChange={this.handleDescription} />
-            <FormLabel>Nationality</FormLabel>
-            <Input placeholder='Nationality' onChange={this.handleNationality} />
-            <FormLabel>Type</FormLabel>
-            <Input placeholder='Type' onChange={this.handleType} />
-            <FormLabel>Phone</FormLabel>
-            <Input placeholder='Phone' onChange={this.handlePhone} />
-            <FormLabel>WhatsApp</FormLabel>
-            <Input placeholder='Whatsapp' onChange={this.handleWhatsapp} />
-            <FormLabel>Email</FormLabel>
-            <Input placeholder='E-mail' onChange={this.handleEmail} />
-            <FormLabel>Requirements</FormLabel>
-            <TagsInput value={this.states.data.requirements.items} onChange={this.handleRequirements} />
-            <FormLabel>Language</FormLabel>
-            <TagsInput value={this.states.data.requirements.language} onChange={this.handleLanguage} />
-            <FormLabel>Responsibilites</FormLabel>
-            <TagsInput value={this.states.data.responsibilites} onChange={this.handleResponsibilities} />
-            <FormLabel>Benefit</FormLabel>
-            <TagsInput value={this.states.data.benefit} onChange={this.handleBenefit} />
-            <Button onClick={this.saveData}>Save</Button>
+            { isLoading ? loading : form }
         </Container>
       );
     }
@@ -198,7 +219,7 @@ const SubTitle = styled.span`
   /* font-weight: bold; */
 `
 
-const JobListContainer = styled.div`
+const FormWrapper = styled.div`
   width: 100% ;
   height: calc(100% - 100px);
   display: flex;

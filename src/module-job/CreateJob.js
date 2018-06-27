@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import { observable, toJS } from 'mobx';
 import TagsInput from 'react-tagsinput'
 import dummy from '../dummy/jobs.json';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 let renders = [] 
 
@@ -16,6 +16,7 @@ export default observer (
 
     states = observable({
       isLoading: true,
+      redirect: false,
       data: {
         title: '',
         company: '',
@@ -100,12 +101,14 @@ export default observer (
      }
 
     saveData = () => {
+      this.states.isLoading = true
       console.log(toJS(this.states.data));
-      const {data} = this.states
+      const {data, redirect} = this.states
       axios.post(`http://private-27298f-frontendtestmaukerja.apiary-mock.com/jobs`, { data })
         .then(res => {
           console.log(res);
           console.log(res.data);
+          this.states.redirect = true
         })
     }
 
@@ -117,34 +120,15 @@ export default observer (
         })
     }
     render() {
-      
-      
-      const loading = (
-        <LoadingWrapper>
-          <ReactLoading type='spin' color='#2980b9'/>
-        </LoadingWrapper>
-      )
-      return (
-        <Container>
-          <Title>Mau Kerja - Admin Page</Title>
-          <Menu>
-            <NavLink to="/">
-              <Menu.Item
-                name='home'
-                active={false}
-              >
-                Home
-              </Menu.Item>
-            </NavLink>
-            <NavLink to="/admin">
-              <Menu.Item name='admin' active={true}>
-                Admin Page
-              </Menu.Item>
-            </NavLink>
-          </Menu>
-          <SubTitle>Add new Job</SubTitle>
-          <Divider/>
-            <FormLabel>Title</FormLabel>
+      const {isLoading, redirect} = this.states
+
+      if(redirect) {
+        return <Redirect to="/admin" push />
+      }
+
+      const form = (
+        <JobListContainer>
+          <FormLabel>Title</FormLabel>
             <Input placeholder='Job Title' onChange={this.handleTitle} />
             <FormLabel>Company</FormLabel>
             <Input placeholder='Company' onChange={this.handleCompany} />
@@ -171,6 +155,35 @@ export default observer (
             <FormLabel>Benefit</FormLabel>
             <TagsInput value={this.states.data.benefit} onChange={this.handleBenefit} />
             <Button onClick={this.saveData}>Save</Button>
+        </JobListContainer>
+      )
+      
+      const loading = (
+        <LoadingWrapper>
+          <ReactLoading type='spin' color='#2980b9'/>
+        </LoadingWrapper>
+      )
+      return (
+        <Container>
+          <Title>Mau Kerja - Admin Page</Title>
+          <Menu>
+            <NavLink to="/">
+              <Menu.Item
+                name='home'
+                active={false}
+              >
+                Home
+              </Menu.Item>
+            </NavLink>
+            <NavLink to="/admin">
+              <Menu.Item name='admin' active={true}>
+                Admin Page
+              </Menu.Item>
+            </NavLink>
+          </Menu>
+          <SubTitle>Add new Job</SubTitle>
+          <Divider/>
+            { isLoading ? loading : form}
         </Container>
       );
     }

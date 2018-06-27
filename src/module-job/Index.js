@@ -110,7 +110,7 @@ export default observer (
             <NavLink to="/">
               <Menu.Item
                 name='home'
-                active={false}
+                active={true}
               >
                 Home
               </Menu.Item>

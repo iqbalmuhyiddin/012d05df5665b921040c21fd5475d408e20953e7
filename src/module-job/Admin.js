@@ -51,7 +51,7 @@ export default observer (
               <Table.Cell>{value.description}</Table.Cell>
               <Table.Cell>
                 <Button.Group>
-                  {/* <Button>Edit</Button> */}
+                  <NavLink to={`/edit-job/${value.id}`}><Button>Edit</Button></NavLink>
                   <Button color='red' onClick={this.deleteAlert(value.id)}>Delete</Button>
                 </Button.Group>
               </Table.Cell>
@@ -76,7 +76,7 @@ export default observer (
               <Table.Cell>{value.description}</Table.Cell>
               <Table.Cell>
                 <Button.Group>
-                  {/* <Button>Edit</Button> */}
+                <NavLink to={`/edit-job/${value.id}`}><Button>Edit</Button></NavLink>
                   <Button color='red' onClick={this.deleteAlert(value.id)}>Delete</Button>
                 </Button.Group>
               </Table.Cell>
@@ -87,22 +87,7 @@ export default observer (
     }
     render() {
       const { isModalOpen, isLoading, renders } = this.states
-      // renders = dummy.map((value, index) => (
-      //   <Table.Row>
-      //     <Table.Cell>{value.company}</Table.Cell>
-      //     <Table.Cell>{value.title}</Table.Cell>
-      //     <Table.Cell>{value.location}</Table.Cell>
-      //     <Table.Cell>{value.type}</Table.Cell>
-      //     <Table.Cell>{value.description}</Table.Cell>
-      //     <Table.Cell>
-      //       <Button.Group>
-      //         {/* <Button>Edit</Button> */}
-      //         <Button color='red' onClick={this.deleteAlert(value.id)}>Delete</Button>
-      //       </Button.Group>
-      //     </Table.Cell>
-      //   </Table.Row>
-      // ))
-      // const { isLoading, rendres } = this.states
+      
       const table = (
           <Table celled>
             <Table.Header>

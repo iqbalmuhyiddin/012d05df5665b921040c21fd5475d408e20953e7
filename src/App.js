@@ -5,6 +5,7 @@ import JobIndex from './module-job/Index';
 import Admin from './module-job/Admin';
 import Detail from './module-job/Detail';
 import CreateJob from './module-job/CreateJob';
+import EditJob from './module-job/EditJob';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <Route path='/create-job' component={CreateJob}/>
           <Route path='/admin' component={Admin}/>
           <Route path='/job/:jobId' component={Detail}/>
+          <Route path='/edit-job/:jobId' component={EditJob}/>
           <Route path='/' component={JobIndex}/>
         </Switch>
       </Router>
